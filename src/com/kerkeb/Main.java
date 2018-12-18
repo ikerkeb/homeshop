@@ -9,26 +9,36 @@ public class Main {
 
         Customer customer = new Customer("Juste Leblanc", "19 rue Germain Pilon, Paris");
 
+//      Uncomment to test the program with Products in bill
+
+//        Bill bill = new Bill(customer, new RelayDelivery(27));
+//        bill.addProduct(cafe, 1);
+//        bill.addProduct(tv, 1);
+//        bill.addProduct(fridge, 1);
+
+//        bill.generate(new Writer() {
+//            @Override
+//            public void start() {
+//
+//            }
+//
+//            @Override
+//            public void writeLine(String line) {
+//                System.out.println(line);
+//            }
+//
+//            @Override
+//            public void stop() {
+//
+//            }
+//        });
+
+
         Bill bill = new Bill(customer, new RelayDelivery(27));
-        bill.addProduct(cafe, 1);
-        bill.addProduct(tv, 1);
-        bill.addProduct(fridge, 1);
-
-        bill.generate(new Writer() {
-            @Override
-            public void start() {
-
-            }
-
-            @Override
-            public void writeLine(String line) {
-                System.out.println(line);
-            }
-
-            @Override
-            public void stop() {
-
-            }
-        });
+        try {
+            bill.generate(new FileWriter("facture_leblanc"));
+        } catch (NoProductInBillException e) {
+            System.err.println("Pas de produit dans la facture");
+        }
     }
 }
